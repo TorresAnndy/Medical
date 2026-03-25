@@ -48,7 +48,6 @@ const HomePage = () => {
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '24px 16px' }}>
 
-      {/* Encabezado */}
       <div style={{
         display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', marginBottom: '24px'
@@ -73,7 +72,6 @@ const HomePage = () => {
         </button>
       </div>
 
-      {/* Formulario modal */}
       {showForm && (
         <div style={{
           position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)',
@@ -98,14 +96,12 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Loading */}
       {loading && (
         <div style={{ textAlign: 'center', padding: '48px', color: '#6B7280' }}>
           ⏳ Cargando citas...
         </div>
       )}
 
-      {/* Lista vacía */}
       {!loading && appointments.length === 0 && (
         <div style={{
           textAlign: 'center', padding: '64px 16px',
@@ -119,7 +115,6 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Grid de citas */}
       {!loading && appointments.length > 0 && (
         <div style={{
           display: 'grid',

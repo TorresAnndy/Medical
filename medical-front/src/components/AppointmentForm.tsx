@@ -107,7 +107,6 @@ const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) =>
         />
       </div>
 
-      {/* Botones */}
       <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
         <button
           type="submit"

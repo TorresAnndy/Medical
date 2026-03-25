@@ -28,7 +28,6 @@ const AppointmentCard = ({
       gap: '10px',
       boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
     }}>
-      {/* Encabezado */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h3 style={{ margin: 0, fontSize: '1rem', color: '#111827' }}>
           👤 {appointment.patient_name}
@@ -47,7 +46,6 @@ const AppointmentCard = ({
         📝 <strong>Motivo:</strong> {appointment.reason}
       </p>
 
-      {/* Cambiar estado */}
       <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
         {(['pendiente', 'confirmada', 'cancelada'] as const).map((s) => (
           <button
@@ -69,7 +67,6 @@ const AppointmentCard = ({
         ))}
       </div>
 
-      {/* Acciones */}
       <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
         <button
           onClick={() => onViewDetail(appointment.id)}

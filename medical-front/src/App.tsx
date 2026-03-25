@@ -2,11 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
+import LoginPage from './pages/LoginPage';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return (
     <BrowserRouter>
-      {/* Notificaciones toast globales */}
+
       <Toaster
         position="top-right"
         toastOptions={{
@@ -18,22 +20,61 @@ const App = () => {
         }}
       />
 
-      {/* Navbar simple */}
       <nav style={{
-        background: '#1D4ED8', padding: '0 24px',
-        height: '56px', display: 'flex', alignItems: 'center',
+        background: '#1D4ED8',
+        padding: '0 24px',
+        height: '56px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
       }}>
-        <span style={{ color: '#fff', fontWeight: 700, fontSize: '1rem' }}>
+        <span style={{ color: '#fff', fontWeight: 700 }}>
           🏥 MedApp
         </span>
+
+        {localStorage.getItem('token') && (
+          <button
+            onClick={() => {
+              localStorage.removeItem('token');
+              window.location.href = '/login';
+            }}
+            style={{
+              background: 'transparent',
+              border: '1px solid #fff',
+              color: '#fff',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+            }}
+          >
+            Cerrar sesión
+          </button>
+        )}
       </nav>
 
-      {/* Rutas */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/appointments/:id" element={<DetailPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/appointments/:id"
+          element={
+            <PrivateRoute>
+              <DetailPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
+
     </BrowserRouter>
   );
 };

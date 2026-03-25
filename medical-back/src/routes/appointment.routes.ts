@@ -9,8 +9,10 @@ import {
   updateAppointmentStatus,
 } from '../controllers/appointment.controller';
 import { validateRequest } from '../middlewares/validate.middleware';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
+
 
 const appointmentValidations = [
   body('patient_name')
@@ -36,10 +38,10 @@ const statusValidation = [
 ];
 
 router.get('/', getAppointments);
-router.get('/:id', uuidValidation, validateRequest, getAppointmentById);
+router.get('/:id', uuidValidation, authMiddleware,validateRequest, getAppointmentById);
 router.post('/', appointmentValidations, validateRequest, createAppointment);
-router.put('/:id', [...uuidValidation], validateRequest, updateAppointment);
-router.delete('/:id', uuidValidation, validateRequest, deleteAppointment);
-router.patch('/:id/status', [...uuidValidation, ...statusValidation], validateRequest, updateAppointmentStatus);
+router.put('/:id', [...uuidValidation], authMiddleware, validateRequest, updateAppointment);
+router.delete('/:id', uuidValidation, authMiddleware, validateRequest, deleteAppointment);
+router.patch('/:id/status', [...uuidValidation, ...statusValidation], authMiddleware, validateRequest, updateAppointmentStatus);
 
 export default router;

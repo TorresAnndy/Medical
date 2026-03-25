@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import appointmentRoutes from './routes/appointment.routes';
+import userRoutes from './routes/user.routes';
 import { errorHandler } from './middlewares/error.middleware';
 
 dotenv.config();
@@ -9,29 +10,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middlewares globales
 app.use(cors({
   origin: process.env.FRONTEND_URL || '*',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Rutas
 app.use('/appointments', appointmentRoutes);
+app.use('/users', userRoutes);
 
-// Ruta no encontrada
 app.use((_req, res) => {
   res.status(404).json({ success: false, message: 'Ruta no encontrada' });
 });
 
-// Manejo global de errores
 app.use(errorHandler);
 
 app.listen(PORT, () => {

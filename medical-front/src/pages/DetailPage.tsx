@@ -45,7 +45,6 @@ const DetailPage = () => {
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
 
-      {/* Botón volver */}
       <button
         onClick={() => navigate('/')}
         style={{
@@ -57,7 +56,6 @@ const DetailPage = () => {
         ← Volver
       </button>
 
-      {/* Card de detalle */}
       <div style={{
         background: '#fff', borderRadius: '16px',
         border: '1px solid #E5E7EB', padding: '28px',
