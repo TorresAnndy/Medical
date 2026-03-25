@@ -116,12 +116,20 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = (req as any).user.id;
 
-    const result = await pool.query(`
-      SELECT u.id, u.name, u.email, r.name as role, u.created_at
+    const result = await pool.query(
+      `
+      SELECT 
+        u.id,
+        u.name,
+        u.email,
+        r.name as role,
+        u.created_at
       FROM users u
       LEFT JOIN roles r ON u.role_id = r.id
       WHERE u.id = $1
-    `, [userId]);
+      `,
+      [userId]
+    );
 
     if (result.rowCount === 0) {
       sendError(res, 'Usuario no encontrado', 404);
@@ -129,7 +137,6 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
     }
 
     sendSuccess(res, result.rows[0], 'Usuario obtenido correctamente');
-
   } catch (error) {
     console.error('Error al obtener usuario:', error);
     sendError(res, 'Error al obtener el usuario', 500);

@@ -7,7 +7,10 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "db:migrate": "ts-node-dev --transpile-only src/db/migrate.roles.ts && ts-node-dev --transpile-only src/db/migrate.appointments.ts && ts-node-dev --transpile-only src/db/migrate.users.ts"
+    "db:migrate": "ts-node-dev --transpile-only src/db/migrate.roles.ts && ts-node-dev --transpile-only src/db/migrate.appointments.ts && ts-node-dev --transpile-only src/db/migrate.users.ts",
+    "db:refresh": "ts-node-dev --transpile-only src/db/refresh.ts",
+    "db:seed": "ts-node-dev --transpile-only src/seed/seed.roles.ts && ts-node-dev --transpile-only src/seed/seed.users.ts && ts-node-dev --transpile-only src/seed/seed.appointments.ts"
+
   },
   "keywords": [],
   "author": "",

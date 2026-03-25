@@ -1,5 +1,10 @@
 import api from './api';
 
+
+export const getMeRequest = async () => {
+  return api.get('/users/me');
+};
+
 export const loginRequest = async (email: string, password: string) => {
   const { data } = await api.post('/users/login', {
     email,
