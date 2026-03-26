@@ -9,7 +9,7 @@ Sistema de gestión de citas médicas desarrollado con Node.js + TypeScript en e
 **Backend**
 - Node.js + Express
 - TypeScript
-- PostgreSQL (Docker local / NeonDB en producción)
+- PostgreSQL (Docker local)
 - express-validator
 
 **Frontend**
@@ -56,10 +56,13 @@ medical-appointments/
 
 **Backend** — crea `backend/.env` basándote en `backend/.env.example`:
 ```env
-DATABASE_URL=postgresql://admin:admin123@localhost:5432/medical_appointments
+DATABASE_URL=postgresql://admin:admin123@localhost:5433/medical_appointments
 PORT=4000
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
+
+JWT_SECRET=supersecreto
+JWT_EXPIRES_IN=24h
 ```
 
 **Frontend** — crea `frontend/.env` basándote en `frontend/.env.example`:
@@ -73,8 +76,8 @@ VITE_API_URL=http://localhost:4000
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/medical-appointments.git
-cd medical-appointments
+git https://github.com/TorresAnndy/Medical.git
+cd medical
 ```
 
 ### 2. Levantar la base de datos con Docker
@@ -86,8 +89,8 @@ docker-compose up -d
 ```bash
 cd backend
 npm install
-cp .env.example .env
 npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
@@ -99,7 +102,6 @@ Abre una nueva terminal:
 ```bash
 cd frontend
 npm install
-cp .env.example .env
 npm run dev
 ```
 
