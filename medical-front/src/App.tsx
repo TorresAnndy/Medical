@@ -37,6 +37,7 @@ const App = () => {
           <button
             onClick={() => {
               localStorage.removeItem('token');
+              localStorage.removeItem('user');
               window.location.href = '/login';
             }}
             style={{

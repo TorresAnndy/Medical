@@ -1,14 +1,28 @@
 import { useState, useEffect } from 'react';
 import type { Appointment, CreateAppointmentDTO } from '../types/appointment';
 
+interface Doctor {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
 interface Props {
   onSubmit: (data: CreateAppointmentDTO) => Promise<void>;
   onCancel: () => void;
   initialData?: Appointment | null;
   loading?: boolean;
+  doctors: Doctor[];
 }
 
-const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) => {
+const AppointmentForm = ({
+  onSubmit,
+  onCancel,
+  initialData,
+  loading,
+  doctors
+}: Props) => {
   const [form, setForm] = useState<CreateAppointmentDTO>({
     patient_name: '',
     doctor_name: '',
@@ -24,11 +38,18 @@ const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) =>
         appointment_date: initialData.appointment_date.slice(0, 16),
         reason: initialData.reason,
       });
+    } else {
+      setForm({
+        patient_name: '',
+        doctor_name: '',
+        appointment_date: '',
+        reason: '',
+      });
     }
   }, [initialData]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -46,6 +67,7 @@ const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) =>
     fontSize: '0.9rem',
     outline: 'none',
     boxSizing: 'border-box' as const,
+    background: '#fff',
   };
 
   const labelStyle = {
@@ -72,15 +94,31 @@ const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) =>
       </div>
 
       <div>
-        <label style={labelStyle}>Nombre del doctor</label>
-        <input
+        <label style={labelStyle}>Doctor asignado</label>
+        <select
           style={inputStyle}
           name="doctor_name"
           value={form.doctor_name}
           onChange={handleChange}
-          placeholder="Ej: Dra. María López"
           required
-        />
+        >
+          <option value="">Selecciona un doctor</option>
+          {doctors.map((doctor) => (
+            <option key={doctor.id} value={doctor.name}>
+              {doctor.name}
+            </option>
+          ))}
+        </select>
+
+        {doctors.length === 0 && (
+          <p style={{
+            marginTop: '6px',
+            fontSize: '0.8rem',
+            color: '#DC2626'
+          }}>
+            No hay doctores disponibles en el sistema.
+          </p>
+        )}
       </div>
 
       <div>
@@ -110,21 +148,22 @@ const AppointmentForm = ({ onSubmit, onCancel, initialData, loading }: Props) =>
       <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || doctors.length === 0}
           style={{
             flex: 1,
             padding: '10px',
             borderRadius: '8px',
             border: 'none',
-            background: loading ? '#93C5FD' : '#2563EB',
+            background: loading || doctors.length === 0 ? '#93C5FD' : '#2563EB',
             color: '#fff',
             fontWeight: 600,
             fontSize: '0.9rem',
-            cursor: loading ? 'not-allowed' : 'pointer',
+            cursor: loading || doctors.length === 0 ? 'not-allowed' : 'pointer',
           }}
         >
           {loading ? 'Guardando...' : initialData ? 'Actualizar cita' : 'Crear cita'}
         </button>
+
         <button
           type="button"
           onClick={onCancel}

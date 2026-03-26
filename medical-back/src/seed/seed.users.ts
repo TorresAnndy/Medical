@@ -16,9 +16,9 @@ const seedUsers = async () => {
     await pool.query(`
       INSERT INTO users (name, email, password, role_id)
       VALUES 
-        ('Admin User', 'admin@test.com', $1, $2),
-        ('Dr. House', 'doctor@test.com', $1, $3),
-        ('Paciente Demo', 'patient@test.com', $1, $4)
+        ('Admin User', 'admin@gmail.com', $1, $2),
+        ('Dr. House', 'doctor@gmail.com', $1, $3),
+        ('Paciente Demo', 'patient@gmail.com', $1, $4)
       ON CONFLICT (email) DO NOTHING;
     `, [
       password,

@@ -4,7 +4,8 @@ import {
     register,
     login,
     getMe,
-    getUsers
+    getUsers,
+    getDoctors
 } from '../controllers/auth.controller';
 import { validateRequest } from '../middlewares/validate.middleware';
 import { authMiddleware } from '../middlewares/auth.middleware'; // 🔥 IMPORTANTE
@@ -34,8 +35,11 @@ const loginValidations = [
 router.post('/register', registerValidations, validateRequest, register);
 router.post('/login', loginValidations, validateRequest, login);
 
+
+
 //Protegidas
 router.get('/me', authMiddleware, getMe);
 router.get('/', authMiddleware, getUsers);
+router.get('/doctors', getDoctors);
 
 export default router;

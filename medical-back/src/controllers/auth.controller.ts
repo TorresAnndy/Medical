@@ -141,4 +141,22 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
     console.error('Error al obtener usuario:', error);
     sendError(res, 'Error al obtener el usuario', 500);
   }
+
+};
+
+export const getDoctors = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const result = await pool.query(`
+      SELECT u.id, u.name, u.email, r.name AS role
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE r.name = 'doctor'
+      ORDER BY u.name ASC
+    `);
+
+    sendSuccess(res, result.rows, 'Doctores obtenidos correctamente');
+  } catch (error) {
+    console.error('Error al obtener doctores:', error);
+    sendError(res, 'Error al obtener los doctores', 500);
+  }
 };
