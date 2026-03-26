@@ -34,7 +34,6 @@ medical-appointments/
 │   │   ├── routes/          # Definición de rutas
 │   │   ├── utils/           # Helpers reutilizables
 │   │   └── index.ts         # Entry point del servidor
-│   ├── .env.example
 │   └── package.json
 ├── frontend/
 │   ├── src/
@@ -45,7 +44,6 @@ medical-appointments/
 │   │   ├── types/           # Interfaces TypeScript
 │   │   ├── utils/           # Utilidades (fechas, etc.)
 │   │   └── App.tsx
-│   ├── .env.example
 │   └── package.json
 └── docker-compose.yml
 ```
