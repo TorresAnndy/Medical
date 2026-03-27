@@ -2,6 +2,18 @@
 
 Sistema de gestión de citas médicas desarrollado con Node.js + TypeScript en el backend y React + Vite + TypeScript en el frontend.
 
+##Cuentas
+
+---
+
+admin@gmail.com
+123456
+doctor@gmail.com
+123456
+patient@gmail.com
+123456
+---
+
 ---
 
 ## 🧰 Tecnologías utilizadas
